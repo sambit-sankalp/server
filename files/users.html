@@ -1,0 +1,95 @@
+
+<html lang="en">
+  
+    <head>
+        <meta charset="UTF-8">
+        <title>All the users</title>
+      
+        <!-- INCLUDING JQUERY-->
+        <script src="https://code.jquery.com/jquery-3.5.1.js">
+        </script>
+      
+        <!-- CSS FOR STYLING THE PAGE -->
+        <style>
+            table {
+                margin: 0 auto;
+                font-size: large;
+                border: 1px solid black;
+                border-collapse: collapse;
+            }
+      
+            h1 {
+                text-align: center;
+                color: #000;
+                font-size: xx-large;
+            }
+      
+            td {
+                background-color: #E4F5D4;
+                border: 1px solid black;
+                color: #ffffff;
+            }
+      
+            th,
+            td {
+                font-weight: bold;
+                border: 1px solid black;
+                padding: 10px;
+                text-align: center;
+            }
+      
+            td {
+                font-weight: bold;
+            }
+        </style>
+    </head>
+      
+    <body>
+        <section>
+            <h1>Our Users</h1>
+      
+            <!-- TABLE CONSTRUCTION-->
+            <table id='table' method = 'get' action='/users/all'>
+                <!-- HEADING FORMATION -->
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Password</th>
+                    <th>Profession</th>
+                </tr>
+            </table>
+        </section>
+        <script>
+            $(document).ready(function () {
+        
+                // FETCHING DATA FROM JSON FILE
+                $.getJSON("data.json", 
+                        function (data) {
+                    var professionals = '';
+        
+                    // ITERATING THROUGH OBJECTS
+                    $.each(data, function (key, value) 
+                    {
+        
+                        //CONSTRUCTION OF ROWS HAVING
+                        // DATA FROM JSON OBJECT
+                        professionals += '<tr>';
+                        professionals += '<td>' + value.id + '</td>';
+        
+                        professionals += '<td>' + value.name + '</td>';
+        
+                        professionals += '<td>' + value.password + '</td>';
+        
+                        professionals += '<td>' +  value.profession + '</td>';
+        
+                        professionals += '</tr>';
+                    });
+                      
+                    //INSERTING ROWS INTO TABLE 
+                    $('#table').append(professionals);
+                });
+            });
+        </script>
+    </body>
+</html>
+
